@@ -1,5 +1,5 @@
 DTR:
-  FQDN: <DTR FQDN>
+  FQDN: ec2-3-218-141-222.compute-1.amazonaws.com
   port: 4443
 
 DB:
