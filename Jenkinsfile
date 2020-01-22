@@ -6,8 +6,8 @@ pipeline {
         DOCKER_TLS_VERIFY='1'                                                                                               
         COMPOSE_TLS_VERSION='TLSv1_2'                                                                                       
         DOCKER_CERT_PATH='/home/jenkins/jenkinscerts'
-        DOCKER_HOST='tcp://<UCP FQDN>:443'
-        DTR_FQDN_PORT='<DTR_FQDN>:4443'
+        DOCKER_HOST='tcp://ec2-3-218-141-222.compute-1.amazonaws.com:443'
+        DTR_FQDN_PORT='ec2-3-218-141-222.compute-1.amazonaws.com:4443'
     }
 
     stages {
