@@ -15,13 +15,24 @@ pipeline {
             environment {
                 DTR_ACCESS_KEY = credentials('jenkins-dtr-access-token')
             }
-            steps {
-                sh 'docker image build -t ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILD_ID} api'
-                sh 'docker image build --target test -t ${DTR_FQDN_PORT}/engineering/api-build:unittest-1.0-build-${BUILD_ID} api'
-                sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT}'
-                sh 'docker image push ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILD_ID}'
-                sh 'docker image push ${DTR_FQDN_PORT}/engineering/api-build:unittest-1.0-build-${BUILD_ID}'
-            }
+	steps {
+	    sh 'docker image build -t \
+	        ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILD_ID} \
+	        api'
+	    sh 'docker image build --target test -t \
+	        ${DTR_FQDN_PORT}/engineering/api-build:unittest-1.0-build-${BUILD_ID} \
+	        api'
+	    sh 'docker image build -t \
+	        ${DTR_FQDN_PORT}/engineering/api-build:integration-1.0-build-${BUILD_ID} \
+	        api/integration'
+	    sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT}'
+	    sh 'docker image push \
+	        ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILD_ID}'
+	    sh 'docker image push \
+	        ${DTR_FQDN_PORT}/engineering/api-build:unittest-1.0-build-${BUILD_ID}'
+	    sh 'docker image push \
+	        ${DTR_FQDN_PORT}/engineering/api-build:integration-1.0-build-${BUILD_ID}'
+	}
         }
     }
 }
