@@ -52,6 +52,7 @@ pipeline {
 	    environment {
 	      DTR_ACCESS_KEY=credentials('jenkins-dtr-access-token')
 	      DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=credentials('jenkins-content-trust')
+	      GIT_TOKEN=credentials('github-token')
 	    }
 	    steps {
                 sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
@@ -70,8 +71,11 @@ pipeline {
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
 			--destination releases helm; \
-		    echo ${GIT_URL}; \
-		    echo ${GIT_URL_N}'
+		    git config --global user.email "mail@mail.mail"; \
+                    git config --global user.name "jenkins"; \
+		    git add releases/*; \
+		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
+		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack ${GIT_BRANCH}'
 	    }
 	}
     }
