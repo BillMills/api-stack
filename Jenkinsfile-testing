@@ -55,12 +55,12 @@ pipeline {
 	    steps {
 	        sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
 	            BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
-		    docker image pull --target ci \
+		    docker image pull \
 		        ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILDNO}; \
-	            docker image tag --target ci \
+	            docker image tag ci \
 	                ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILDNO} \
 	                ${DTR_FQDN_PORT}/engineering/api:1.0 ; \
-                docker trust sign --target ci ${DTR_FQDN_PORT}/engineering/api:1.0'
+                docker trust sign ci ${DTR_FQDN_PORT}/engineering/api:1.0'
 	    }
 	}
     }
