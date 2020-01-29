@@ -55,7 +55,7 @@ pipeline {
 	    steps {
                 sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
 	            BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
-		    docker system info | grep 'NodeID'; \
+		    docker system info | grep "NodeID"; \
 		    docker image pull \
 		        ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILDNO}; \
 	            docker image tag \
