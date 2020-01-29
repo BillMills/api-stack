@@ -53,7 +53,7 @@ pipeline {
 	      DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=credentials('jenkins-content-trust')
 	    }
 	    steps {
-	        sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
+                sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
 	            BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
 		    docker system info | grep 'NodeID'; \
 		    docker image pull \
