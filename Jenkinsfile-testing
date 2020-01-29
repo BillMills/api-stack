@@ -73,6 +73,8 @@ pipeline {
 			--destination releases helm; \
 		    git config --global user.email "mail@mail.mail"; \
                     git config --global user.name "jenkins"; \
+		    git branch; \
+		    git checkout maven-test; \
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
 		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-test'
