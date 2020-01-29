@@ -70,9 +70,8 @@ pipeline {
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
 			--destination releases helm; \
-	            git add releases/*; \
-		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
-		    git push ${GIT_URL} ${GIT_BRANCH}'
+		    echo ${GIT_URL}; \
+		    echo ${GIT_URL_N}'
 	    }
 	}
     }
