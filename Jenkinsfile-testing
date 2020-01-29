@@ -55,6 +55,9 @@ pipeline {
 	    steps {
                 sh 'docker login -u jenkins -p ${DTR_ACCESS_KEY} ${DTR_FQDN_PORT} ; \
 	            BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
+		    curl -k https://${DTR_FQDN_PORT}/ca \
+		        -o /usr/local/share/ca-certificates/${DTR_FQDN_PORT}.crt ; \
+		    update-ca-certificates; \
 		    docker trust key load ${DOCKER_CERT_PATH}/key.pem; \
 		    docker image pull \
 		        ${DTR_FQDN_PORT}/engineering/api-build:rc-1.0-build-${BUILDNO}; \
