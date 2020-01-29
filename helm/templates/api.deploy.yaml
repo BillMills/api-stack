@@ -15,9 +15,3 @@ spec:
       containers:
       - name: springboot
         image: {{ .Values.DTR.FQDN }}:{{ .Values.DTR.port }}/engineering/api-build:{{ .Values.API.tag }}
-        livenessProbe:
-          httpGet:
-            path: /api/products/1
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 5
