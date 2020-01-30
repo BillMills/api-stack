@@ -75,6 +75,7 @@ pipeline {
                     git config --global user.name "jenkins"; \
 		    git branch; \
 		    git checkout maven-test; \
+		    git pull https://BillMills/api-stack maven-test; \
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
 		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-test'
