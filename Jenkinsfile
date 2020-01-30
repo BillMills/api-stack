@@ -38,8 +38,7 @@ pipeline {
 	
     post {
         always{
-	        sh 'echo $WORKSPACE ; \
-		    rm -rf /var/jenkins_home/workspace/build-server/*'
+	        sh 'rm -rf ${WORKSPACE}/*'
         }
     }
 }
