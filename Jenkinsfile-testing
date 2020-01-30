@@ -80,15 +80,17 @@ pipeline {
 		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-test'
 	    }
 	}
+	
+        stage('Deploy') {
+	        steps {
+	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
+	            git clone -b maven-test https://BillMills/api-stack maven-test; \
+		        cd api-stack; \
+		        helm install final --namespace staging helm/releases/demochart-0.0.${BUILDNO}.tgz'
+	        }
+        }
     }
 
-    stage('Deploy') {
-	    steps {
-	    sh 'git clone -b maven-test https://BillMills/api-stack maven-test; \
-		cd api-stack; \
-		helm install final --namespace staging helm'
-	    }
-    }
 
     post {
         always{
