@@ -81,7 +81,15 @@ pipeline {
 	    }
 	}
     }
-    
+
+    stage('Deploy') {
+	    steps {
+	    sh 'git clone -b maven-test https://BillMills/api-stack maven-test; \
+		cd api-stack; \
+		helm install final --namespace staging helm'
+	    }
+    }
+
     post {
         always{
 	    sh 'helm uninstall integrationtest --namespace test'
