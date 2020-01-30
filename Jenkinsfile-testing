@@ -70,7 +70,11 @@ pipeline {
 		    helm package --set API.tag=1.0 \
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
-			--destination releases helm;'
+			--destination releases helm; \
+	            pwd; \
+		    ls; \
+		    git branch; \
+		    git log;'
 	    }
 	}
 	
@@ -80,8 +84,7 @@ pipeline {
 
     post {
         always{
-	    sh 'pwd; \
-		    ls; \
+	    sh 'rm -rf /var/jenkins_home/workspace/testing; \
 		    helm uninstall integrationtest --namespace test'
 	}
     }
