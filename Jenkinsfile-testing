@@ -71,29 +71,14 @@ pipeline {
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
 			--destination releases helm; \
-		    git config --global user.email "mail@mail.mail"; \
-                    git config --global user.name "jenkins"; \
-		    git checkout maven-test; \
-		    git pull https://github.com/BillMills/api-stack maven-test; \
-		    git add releases/*; \
-		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
-		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-test'
+		    pwd; \
+		    ls; \
+		    git branch; \
+		    git log;'
 	    }
 	}
 	
-        stage('Deploy') {
-	        steps {
-	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
-		    ls; \
-		    ls api-stack; \
-		    cd api-stack; \
-		    git log; \
-		    git branch; \
-	            git clone -b maven-test https://github.com/BillMills/api-stack; \
-		        cd api-stack/releases; \
-		        helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
-	        }
-        }
+
     }
 
 
