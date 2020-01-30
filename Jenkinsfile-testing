@@ -85,8 +85,8 @@ pipeline {
 	        steps {
 	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
 	            git clone -b maven-test https://github.com/BillMills/api-stack; \
-		        cd api-stack; \
-		        helm install final --namespace staging helm/releases/demochart-0.0.${BUILDNO}.tgz'
+		        cd api-stack/releases; \
+		        helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
 	        }
         }
     }
