@@ -72,8 +72,6 @@ pipeline {
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
 			--destination releases helm; \
-		    git config --global user.email "mail@mail.mail"; \
-                    git config --global user.name "jenkins"; \
 		    git checkout maven-release; \
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
