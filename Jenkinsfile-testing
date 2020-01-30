@@ -73,11 +73,11 @@ pipeline {
 			--destination releases helm; \
 		    git config --global user.email "mail@mail.mail"; \
                     git config --global user.name "jenkins"; \
-		    git checkout master; \
+		    git checkout maven-release; \
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
 		    git push \
-		        https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack master'
+		        https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-release'
 	    }
 	}
 	
@@ -85,6 +85,7 @@ pipeline {
 	        steps {
 	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
 	            pwd; \
+		    git branch; \
 		    helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
 	        }
         }
