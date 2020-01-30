@@ -75,13 +75,24 @@ pipeline {
                     git config --global user.name "jenkins"; \
 		    git branch; \
 		    git checkout maven-test; \
+		    git pull https://github.com/BillMills/api-stack maven-test; \
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
 		    git push https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-test'
 	    }
 	}
+	
+        stage('Deploy') {
+	        steps {
+	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
+	            git clone -b maven-test https://github.com/BillMills/api-stack maven-test; \
+		        cd api-stack; \
+		        helm install final --namespace staging helm/releases/demochart-0.0.${BUILDNO}.tgz'
+	        }
+        }
     }
-    
+
+
     post {
         always{
 	    sh 'helm uninstall integrationtest --namespace test'
