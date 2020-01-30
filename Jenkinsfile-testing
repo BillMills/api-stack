@@ -84,6 +84,11 @@ pipeline {
         stage('Deploy') {
 	        steps {
 	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
+		    ls; \
+		    ls api-stack; \
+		    cd api-stack; \
+		    git log; \
+		    git branch; \
 	            git clone -b maven-test https://github.com/BillMills/api-stack; \
 		        cd api-stack/releases; \
 		        helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
