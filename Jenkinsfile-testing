@@ -10,6 +10,7 @@ pipeline {
         DTR_FQDN_PORT='ec2-3-218-141-222.compute-1.amazonaws.com:4443'
         KUBECONFIG='/home/jenkins/jenkinscerts/kube.yml'
 	MAJORMINOR='0.0'
+	GIT_USER='BillMills'
     }
 
     stages {
@@ -77,7 +78,7 @@ pipeline {
 		    git add releases/*; \
 		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
 		    git push \
-		        https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack maven-release'
+		        https://${GIT_USER}:${GIT_TOKEN}@github.com/${GIT_USER}/api-stack maven-release'
 	    }
 	}
 	
