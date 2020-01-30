@@ -86,6 +86,7 @@ pipeline {
 	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
 	            pwd; \
 		    git branch; \
+		    cd api-stack/releases; \
 		    helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
 	        }
         }
