@@ -71,14 +71,24 @@ pipeline {
 		        --set API.repo=engineering/api \
 			--version ${MAJORMINOR}.${BUILDNO} \
 			--destination releases helm; \
-	            pwd; \
-		    ls; \
-		    git branch; \
-		    git log;'
+		    git config --global user.email "mail@mail.mail"; \
+                    git config --global user.name "jenkins"; \	
+		    git checkout master; \
+		    git add releases/*; \
+		    git commit -a -m "packaged release ${MAJORMINOR}.${BUILDNO}"; \
+		    git push \
+		        https://BillMills:${GIT_TOKEN}@github.com/BillMills/api-stack master'
 	    }
 	}
 	
-
+        stage('Deploy') {
+	        steps {
+	        sh 'BUILDNO=$(echo ${TAG} | sed "s/.*-//"); \
+	            pwd; \
+		    helm install final --namespace staging demochart-0.0.${BUILDNO}.tgz'
+	        }
+        }
+    
     }
 
 
