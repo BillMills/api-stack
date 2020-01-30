@@ -35,4 +35,10 @@ pipeline {
 	}
         }
     }
+	
+    post {
+        always{
+	        sh 'rm -rf /var/jenkins_home/workspace/build-server/*'
+        }
+    }
 }
